@@ -27,6 +27,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "../../../../bootstrap/dist/css/bootstrap.min.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("../../../../css-loader/index.js?{\"sourceMap\":false,\"importLoaders\":1}!../../../../postcss-loader/index.js?{\"ident\":\"postcss\"}!../../../../bootstrap/dist/css/bootstrap.min.css");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__("../../../../style-loader/addStyles.js")(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css", function() {
+			var newContent = require("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "../../../../bootstrap/dist/fonts/glyphicons-halflings-regular.eot":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -431,7 +458,8 @@ function updateLink(linkElement, obj) {
 /***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("../../../../../src/styles.css");
+__webpack_require__("../../../../../src/styles.css");
+module.exports = __webpack_require__("../../../../bootstrap/dist/css/bootstrap.min.css");
 
 
 /***/ })

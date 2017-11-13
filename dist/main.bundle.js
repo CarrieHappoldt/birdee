@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar></app-navbar>\n<div>\n  <!-- <h1>Welcome to {{title}}</h1>\n  <ul>\n    <li *ngFor=\"let bird of birds\">{{bird.common_name}}</li>\n  </ul> -->\n <!-- <button class=\"btn btn-primary\" (click)=\"loadData($event)\">My fucking refresh Button</button> -->\n <!-- </div> ?????-->\n <router-outlet></router-outlet> \n</div>\n\n<!-- <app-dashboard></app-dashboard>\n<hr>\n<app-journal></app-journal>  -->\n<hr>\n\n<app-footer></app-footer>\n"
+module.exports = "<app-navbar></app-navbar>\n<div>\n  <router-outlet></router-outlet>  \n</div>\n\n<hr>\n\n<app-footer></app-footer>\n"
 
 /***/ }),
 
@@ -71,7 +71,8 @@ var AppComponent = (function () {
     AppComponent.prototype.loadData = function () {
         var _this = this;
         this.http.get('/api/v1/birds').subscribe(function (data) {
-            _this.birds = data;
+            //this.birds = data;
+            _this.birds = data.slice(0, 3);
         });
     };
     return AppComponent;
@@ -85,11 +86,6 @@ AppComponent = __decorate([
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
 ], AppComponent);
 
-var Bird = (function () {
-    function Bird() {
-    }
-    return Bird;
-}());
 var _a;
 //# sourceMappingURL=app.component.js.map
 
@@ -109,8 +105,10 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__footer_footer_component__ = __webpack_require__("../../../../../src/app/footer/footer.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dashboard_feature_bird_feature_bird_component__ = __webpack_require__("../../../../../src/app/dashboard/feature-bird/feature-bird.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__dashboard_journal_journal_component__ = __webpack_require__("../../../../../src/app/dashboard/journal/journal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__journal_page_journal_page_component__ = __webpack_require__("../../../../../src/app/journal-page/journal-page.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__dashboard_user_user_component__ = __webpack_require__("../../../../../src/app/dashboard/user/user.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__dashboard_journal_journal_component__ = __webpack_require__("../../../../../src/app/dashboard/journal/journal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__profile_page_profile_page_component__ = __webpack_require__("../../../../../src/app/profile-page/profile-page.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -128,9 +126,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var appRoutes = [
     { path: "", component: __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__["a" /* DashboardComponent */] },
-    { path: "journal", component: __WEBPACK_IMPORTED_MODULE_9__dashboard_journal_journal_component__["a" /* JournalComponent */] }
+    { path: "journal", component: __WEBPACK_IMPORTED_MODULE_9__journal_page_journal_page_component__["a" /* JournalPageComponent */] },
+    { path: "profile", component: __WEBPACK_IMPORTED_MODULE_12__profile_page_profile_page_component__["a" /* ProfilePageComponent */] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -145,8 +146,10 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_6__footer_footer_component__["a" /* FooterComponent */],
             __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__["a" /* DashboardComponent */],
             __WEBPACK_IMPORTED_MODULE_8__dashboard_feature_bird_feature_bird_component__["a" /* FeatureBirdComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__dashboard_journal_journal_component__["a" /* JournalComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__dashboard_user_user_component__["a" /* UserComponent */]
+            __WEBPACK_IMPORTED_MODULE_9__journal_page_journal_page_component__["a" /* JournalPageComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__dashboard_user_user_component__["a" /* UserComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__dashboard_journal_journal_component__["a" /* JournalComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__profile_page_profile_page_component__["a" /* ProfilePageComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -305,7 +308,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/journal/journal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card card-outline-success\">\n  <h3 class=\"card-header\" style=\"margin-top: 0px\">Journal</h3>\n    <div class=\"card-block\">\n      <h4 class=\"card-title\">Birdee's Seen</h4>\n      <ul>\n        <li>Short List of birds User<li>\n      </ul>\n      <a href=\"#\" class=\"btn btn-success\">Add Sighting!</a>    \n    </div>\n  </div>"
+module.exports = "<div class=\"col\">\n  <div class=\"card card-outline-success\">\n    <h3 class=\"card-header\" style=\"margin-top: 0px\">Journal</h3>\n        <div class=\"card-block\">\n          <h4 class=\"card-title\">Birdee's Seen</h4>\n          <ul>\n            <li *ngFor=\"let bird of birds\">{{bird.common_name}} - <i>{{bird.scientific_name}}</i></li>\n          </ul>\n          <button class=\"btn btn-success\">Add Sighting!</button>    \n        </div>\n  </div>\n</div>  \n\n<!-- <button class=\"btn btn-primary\" (click)=\"loadData($event)\">My fucking refresh Button</button> -->\n"
 
 /***/ }),
 
@@ -315,6 +318,7 @@ module.exports = "<div class=\"card card-outline-success\">\n  <h3 class=\"card-
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JournalComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -325,10 +329,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var JournalComponent = (function () {
-    function JournalComponent() {
+    function JournalComponent(http) {
+        this.http = http;
     }
     JournalComponent.prototype.ngOnInit = function () {
+        this.loadData();
+    };
+    JournalComponent.prototype.loadData = function () {
+        var _this = this;
+        this.http.get('/api/v1/birds').subscribe(function (data) {
+            //this.birds = data;
+            _this.birds = data.slice(0, 3);
+        });
     };
     return JournalComponent;
 }());
@@ -338,9 +352,10 @@ JournalComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/dashboard/journal/journal.component.html"),
         styles: [__webpack_require__("../../../../../src/app/dashboard/journal/journal.component.css")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
 ], JournalComponent);
 
+var _a;
 //# sourceMappingURL=journal.component.js.map
 
 /***/ }),
@@ -467,6 +482,78 @@ FooterComponent = __decorate([
 
 /***/ }),
 
+/***/ "../../../../../src/app/journal-page/journal-page.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/journal-page/journal-page.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"col\">\n  <div class=\"card card-outline-success\">\n    <h3 class=\"card-header\" style=\"margin-top: 0px\">Your Journal</h3>\n        <div class=\"card-block\">\n          <h4 class=\"card-title\">Birdee's Seen</h4>\n          <ul>\n            <li *ngFor=\"let bird of birds\">{{bird.common_name}} - <i>{{bird.scientific_name}}</i></li>\n          </ul>\n          <button class=\"btn btn-success\">Add Sighting!</button>    \n        </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/journal-page/journal-page.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JournalPageComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var JournalPageComponent = (function () {
+    function JournalPageComponent(http) {
+        this.http = http;
+    }
+    JournalPageComponent.prototype.ngOnInit = function () {
+        this.loadData();
+    };
+    JournalPageComponent.prototype.loadData = function () {
+        var _this = this;
+        this.http.get('/api/v1/birds').subscribe(function (data) {
+            _this.birds = data;
+        });
+    };
+    return JournalPageComponent;
+}());
+JournalPageComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-journal-page',
+        template: __webpack_require__("../../../../../src/app/journal-page/journal-page.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/journal-page/journal-page.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+], JournalPageComponent);
+
+var _a;
+//# sourceMappingURL=journal-page.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/navbar/navbar.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -488,7 +575,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-toggleable navbar-light bg-faded\" style=\"background-color: #e3f2fd;\">\n  <a class=\"navbar-brand\" href=\"#\">Birdee</a>\n  <div class=\"collapse navbar-collapse\" id=\"navbarTogglerDemo02\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item active\">\n        <a class=\"nav-link\" href=\"#\">Dashboard<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" href=\"/journal\">Journal</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n\n"
+module.exports = "<nav class=\"navbar navbar-toggleable navbar-light bg-faded\" style=\"background-color: #e3f2fd;\">\n  <a class=\"navbar-brand\" href=\"#\">Birdee</a>\n  <div class=\"collapse navbar-collapse\" id=\"navbarTogglerDemo02\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item active\">\n        <a class=\"nav-link\" routerLink=\"/\">Dashboard<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" routerLink=\"/journal\">Journal</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" routerLink=\"/profile\">Profile</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n\n"
 
 /***/ }),
 
@@ -525,6 +612,67 @@ NavbarComponent = __decorate([
 ], NavbarComponent);
 
 //# sourceMappingURL=navbar.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/profile-page/profile-page.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/profile-page/profile-page.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card p-3 card-outline-primary text-right\">\n  <h3 class=\"card-header\" style=\"margin-top: 0px\">User</h3>\n  <div class=\"text-center\">\n    <img class=\"card-img-top rounded-circle\" style=\"width:100px; height:100px;\" src=\"./images/carrie.jpg\" alt=\"Card image cap\">\n  <h4>Status</h4>\n  <p>You have seen a total of: # birds</p>\n  <p>You have seen unique # birds</p>\n  <p>You Rock Doves the bird you see the most<p>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/profile-page/profile-page.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePageComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ProfilePageComponent = (function () {
+    function ProfilePageComponent() {
+    }
+    ProfilePageComponent.prototype.ngOnInit = function () {
+    };
+    return ProfilePageComponent;
+}());
+ProfilePageComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-profile-page',
+        template: __webpack_require__("../../../../../src/app/profile-page/profile-page.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/profile-page/profile-page.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], ProfilePageComponent);
+
+//# sourceMappingURL=profile-page.component.js.map
 
 /***/ }),
 

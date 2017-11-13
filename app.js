@@ -30,6 +30,12 @@ app.get('/api/v1/birds/:id', (req, res, next) => {
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(express.static('public'))
 
+//default browser
+app.use(function (req, res, next){
+   res.sendFile(__dirname + "/dist/index.html")
+});
+
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {

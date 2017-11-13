@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Bird } from './bird.model'
+
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,6 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  
   birds : Bird[]
 
   constructor(private http: HttpClient) {}
@@ -18,13 +19,10 @@ export class AppComponent implements OnInit {
 
   loadData() : void {
     this.http.get<Bird[]>('/api/v1/birds').subscribe(data => {
-      this.birds = data;
+      //this.birds = data;
+      this.birds = data.slice(0 ,3);
     })
   }
 
   title = 'BIRDIE APP';
-}
-
-class Bird {
-  common_name : String
 }

@@ -9,12 +9,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FeatureBirdComponent } from './dashboard/feature-bird/feature-bird.component';
-import { JournalComponent } from './dashboard/journal/journal.component';
+import { JournalPageComponent } from './journal-page/journal-page.component';
 import { UserComponent } from './dashboard/user/user.component';
+import { JournalComponent } from './dashboard/journal/journal.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component'
 
 const appRoutes: Routes = [
   { path: "", component: DashboardComponent },
-  { path: "journal", component: JournalComponent }
+  { path: "journal", component: JournalPageComponent },
+  { path: "profile", component: ProfilePageComponent }
 ];
 
 @NgModule({
@@ -24,8 +27,11 @@ const appRoutes: Routes = [
     FooterComponent,
     DashboardComponent,
     FeatureBirdComponent,
+    JournalPageComponent,
+    UserComponent,
     JournalComponent,
-    UserComponent
+    ProfilePageComponent  
+       
   ],
   imports: [
     BrowserModule,

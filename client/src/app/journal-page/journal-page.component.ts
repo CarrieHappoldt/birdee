@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Bird } from '../../bird.model'
+import { Bird } from '../bird.model'
 
 @Component({
-  selector: 'app-journal',
-  templateUrl: './journal.component.html',
-  styleUrls: ['./journal.component.css']
+  selector: 'app-journal-page',
+  templateUrl: './journal-page.component.html',
+  styleUrls: ['./journal-page.component.css']
 })
-export class JournalComponent implements OnInit {
+export class JournalPageComponent implements OnInit {
 
   birds : Bird[]
 
@@ -19,11 +19,8 @@ export class JournalComponent implements OnInit {
 
   loadData() : void {
     this.http.get<Bird[]>('/api/v1/birds').subscribe(data => {
-      //this.birds = data;
-      this.birds = data.slice(0 ,3);
+      this.birds = data;
     })
   }
 
 }
-
-
